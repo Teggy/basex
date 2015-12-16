@@ -225,8 +225,18 @@ public final class ANodeList extends ElementList implements Iterable<ANode> {
     if(!check) return;
 
     final int s = size;
+
+    System.out.print("〉 distinct-doc-order() for node sequence of size ");
+    System.out.println(s);
+
+    long startTime = System.nanoTime();
+
     if(s > 1) {
-      if(sort) sort(0, s);
+
+      if(sort) {
+        System.out.println("〉 distinct-doc-order(): sorting");
+        sort(0, s);
+      }
 
       // remove duplicates
       int i = 1;
@@ -236,7 +246,17 @@ public final class ANodeList extends ElementList implements Iterable<ANode> {
         if(j < s) lst[i++] = lst[j];
       }
       size = i;
+
+      System.out.print("〉 distinct-doc-order(): after duplicate removal node sequence has size ");
+      System.out.println(i);
     }
+
+    long estimatedTime = System.nanoTime() - startTime;
+
+    System.out.print("〉 distinct-doc-order() took ");
+    System.out.print(estimatedTime / 1000000.0);
+    System.out.println(" ms");
+
     check = false;
   }
 
